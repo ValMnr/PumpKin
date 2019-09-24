@@ -68,6 +68,59 @@ let Payins =[
         id:1,
         wallet_id:0,
         amount:1200
+    },{
+        id:2,
+        wallet_id:1,
+        amount:34416
+    },{
+        id:3,
+        wallet_id:1,
+        amount:1560
+    }
+];
+
+let Transfers = [
+    {
+        id:1,
+        debited_wallet_id:1 ,
+        credited_wallet_id:0 ,
+        amount:24000
+    },{
+        id:2,
+        debited_wallet_id:1 ,
+        credited_wallet_id:0 ,
+        amount:1200
+    },{
+        id:3,
+        debited_wallet_id:0 ,
+        credited_wallet_id:1 ,
+        amount:34416
+    },{
+        id:3,
+        debited_wallet_id:0,
+        credited_wallet_id:1,
+        amount:1560
+    },
+]
+
+
+let Payouts =[
+    {
+        id:0,
+        wallet_id:1,
+        amount: 24000
+    },{
+        id:1,
+        wallet_id:1,
+        amount:1200
+    },{
+        id:2,
+        wallet_id:0,
+        amount:34416
+    },{
+        id:3,
+        wallet_id:0,
+        amount:1560
     }
 ]
 
