@@ -21,25 +21,25 @@ let Accounts = [
 let Cards = [
     {
         id: 0,
-        last_four: '2492',
+        last_four: '**** **** **** 2492',
         brand: 'visa',
         expired_at: '01/22',
         user_id: 0
     }, {
         id: 1,
-        last_four: '2498',
+        last_four: '**** **** **** 2498',
         brand: 'revolut',
         expired_at: '02/22',
         user_id: 0
     }, {
-        id: 0,
-        last_four: '9200',
+        id: 2,
+        last_four: '**** **** **** 9200',
         brand: 'electron',
         expired_at: '01/22',
         user_id: 1
     }, {
-        id: 0,
-        last_four: '1207',
+        id: 3,
+        last_four: '**** **** **** 1207',
         brand: 'master',
         expired_at: '11/23',
         user_id: 1

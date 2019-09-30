@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Accounts from '../Data/Data.js'
+import Data from '../Data/Data.js'
 
 
 class Login extends Component {
@@ -18,12 +18,11 @@ class Login extends Component {
         this.setState({ [event.target.name]: event.target.value })
     }
 
-
     connect() {
-        for (let i = 0; i < Accounts.length; i++) {
-            if (Accounts[i].email === this.state.email ) {
-                if(Accounts[i].password===this.state.password){
-                    sessionStorage.setItem('crt_user_id', Accounts[i].id);
+        for (let i = 0; i < Data.Accounts.length; i++) {
+            if (Data.Accounts[i].email === this.state.email ) {
+                if(Data.Accounts[i].password===this.state.password){
+                    sessionStorage.setItem('crt_user_id', Data.Accounts[i].id);
                     console.log('Signup succesful');
                     break;
                 }
