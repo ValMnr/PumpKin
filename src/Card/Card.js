@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
 import Data from '../Data/Data.js'
 import { Button } from '../../node_modules/reactstrap'
-
+import Wallet from '../Wallet/Wallet.js'
 
 class Card extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            id: this.props.cardId,
+            id: this.props.id,
             last_four: this.props.last_four,
             brand: this.props.brand,
             expired_at: this.props.expired_at,
             form_val: true,
+            user_id:sessionStorage.getItem('crt_user_id'),
             cardMode: this.props.cardMode
         }
 
@@ -20,7 +21,7 @@ class Card extends Component {
         this.addCard = this.addCard.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.isFormValid = this.isFormValid.bind(this);
-        this.modify = this.modify.bind(this);
+        //this.modify = this.modify.bind(this);
     }
 
     assignValue = () => {
@@ -40,9 +41,7 @@ class Card extends Component {
         }
     }
 
-
     cleanForm = () => {
-        
         var elements = document.getElementsByTagName("input");
         for (var i = 0; i < elements.length; i++) {
             if (elements[i].type === "text" && elements[i].className==="add" ){
@@ -63,7 +62,7 @@ class Card extends Component {
     }
     addCard() {
         
-        this.props.deleteCardComp()
+        //this.props.deleteCardComp()
         console.log('addin card')
         sessionStorage.setItem('crt_user_id', 3)
         let crt_card = {
@@ -75,30 +74,43 @@ class Card extends Component {
         }
         Data.Cards.push(crt_card);
         console.log(Data.Cards);
-        this.props.addCard =false;
+        //this.props.addCard =false;
         this.cleanForm();
         
     }
 
-    modify(){
-        this.setState({cardMode:"modify"})
-        console.log(this.state.cardMode)
-    }
-    
-    delete(){
-
-    }
 
     deleteCard() {
         console.log("Deleting Card");
+        console.log(this.props)
         for (var i = 0; i < Data.Cards.length; i++) {
             if (Data.Cards[i] === parseInt(this.state.id)) {
                 Data.Cards.splice(i, 1);
                 console.log('Card deleted');
             }
         }
+        console.log("Card deleted");
 
     }
+
+    modify =()=>{
+        //this.props.modify(this.state)
+        this.setState({cardMode:"modify"})
+    }
+    delete =()=>{
+        this.props.delete(this.state)
+    }
+    add =()=>{
+        console.log("adding card / child")
+        this.props.add(this.state)
+    }
+    save = () =>{
+        console.log("saving modified card / child")
+        this.props.save(this.state)
+        this.setState({cardMode:'display'})
+
+    }
+
 
     display() {
         if (this.state.cardMode === "add") {
@@ -114,7 +126,7 @@ class Card extends Component {
                         <input className="add" type="text" value={this.state.expired_at} onChange={this.handleChange} name="expired_at" placeholder="Expiring on"></input>
                     </div>
                     <div className="row">
-                        <Button color="primary" title="Add Card" name="form_val" onChange={this.handleChange} onClick={this.addCard} disabled={this.state.form_val}>Sign-Up</Button>{' '}
+                        <Button color="primary" title="Add Card" name="form_val" onChange={this.handleChange} onClick={this.add} disabled={this.state.form_val}>Save</Button>{' '}
                     </div>
                 </div>
             )
@@ -132,7 +144,7 @@ class Card extends Component {
                         <input type="text" value={this.state.expired_at} onChange={this.handleChange} name="expired_at" placeholder={this.state.expired_at}></input>
                     </div>
                     <div className="row">
-                        <Button color="primary" title="Modify Card" name="form_val" onChange={this.handleChange} onClick={this.saveChange} disabled={this.state.form_val}>Save</Button>{' '}
+                        <Button color="primary" title="Modify Card" name="form_val" onChange={this.handleChange} onClick={this.save} disabled={this.state.form_val}>Save</Button>{' '}
                     </div>
                 </div>
             )
@@ -161,7 +173,6 @@ class Card extends Component {
     }
 
     render() {
-
         return (
             <div>{this.display()}</div>
         )

@@ -18,7 +18,7 @@ let Accounts = [
     }
 ];
 
-let Cards = [
+var Cards = [
     {
         id: 0,
         last_four: '**** **** **** 2492',
