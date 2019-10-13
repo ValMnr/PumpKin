@@ -25,9 +25,11 @@ function App() {
        
       </header>
 
-      <Route exact path="/" component={() =>  <Wallet  />}/>
-  <Route exact path="/" component={() => <Link to="/transfert"><Button color="primary" title="Transfer" name="transfert" >Transfert</Button></Link> }/>
+      <Route exact path="/" component={() => <Link to="/transfert"><Button color="primary" title="Transfer" name="transfert" >Transfert</Button></Link> }/>
       <Route path="/transfert" component={() => <Transfert/>}/>
+      <Route exact path="/" component={() => <Link to="/wallet"><Button color="primary" title="Transfer" name="wallet" >Wallet</Button></Link> }/>
+      <Route path="/wallet" component={() => <Transfert/>}/>
+    
     </BrowserRouter>
     </div>
   );

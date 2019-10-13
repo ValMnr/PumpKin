@@ -7,15 +7,22 @@ var fs = require("browserify-fs");
 class Transfert extends Component {
     constructor(props) {
         super(props);
-        this.state = {
+        this.state = { 
             amount: '',
-            recipient: ''
+            recipient: '',
+            form_val:true
             
         }
         this.transfert = this.transfert.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
 
+    isFormValid = () => {
+        const { amount,recipient     } = this.state
+        if (amount.length > 0 && recipient.length > 0 ) {
+            this.setState({ form_val: false });
+        }
+    }
 
     cleanForm = () => {
         var elements = document.getElementsByTagName("input");
@@ -28,7 +35,7 @@ class Transfert extends Component {
 
     handleChange(event) {
         this.setState({ [event.target.name]: event.target.value })
-       // console.log(this.state.amount);
+        this.isFormValid();
     }
 
     transfert() {
@@ -62,7 +69,7 @@ class Transfert extends Component {
                     <input type="text" value ={this.state.amount} onChange={this.handleChange}  name="amount" placeholder="Amount"></input>
                 </div>
                 <div className="row">
-                <Button color="primary" title="Transfer" onClick={this.transfert} name="transfert" >Transfert</Button>
+                <Button color="primary" title="Transfer" onChange={this.handleChange}  onClick={this.transfert} name="transfert" disabled={this.state.form_val} >Transfert</Button>
                 </div>
             </div>
         )

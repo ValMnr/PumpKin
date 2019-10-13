@@ -14,24 +14,20 @@ class Wallet extends Component {
 
         };
 
-        this.getCards = this.getCards.bind(this)
         this.addCardComp = this.addCardComp.bind(this)
-        this.deleteCardComp = this.deleteCardComp.bind(this)
-        this.removeAddCard = this.removeAddCard.bind(this);
-
         this.addCard = this.addCard.bind(this)
 
         this.onModifyCard = this.onModifyCard.bind(this)
-        this.checkId = this.checkId.bind(this)
     }
 
+    addCard(){
+        this.setState({addCard:true})
+    }
 
     componentDidMount() {
         try {
             console.log("Loading cards")
             this.loadCards()
-
-
         }
         catch (e) {
             alert(e);
@@ -112,17 +108,6 @@ class Wallet extends Component {
 
     }
 
-
-
-    addCard() {
-        this.setState({ addCard: true })
-        console.log(jsonData.accounts)
-    }
-
-    removeAddCard() {
-        console.log("removing add card")
-    }
-
     addCardComp() {
         return (
             <div><li>
@@ -131,9 +116,7 @@ class Wallet extends Component {
         )
 
     }
-    deleteCardComp() {
-        this.setState({ addCard: false })
-    }
+
 
     getCards() {
         let Cards = []
@@ -148,20 +131,12 @@ class Wallet extends Component {
         return Cards
     }
 
-    checkId(card) {
-
-
-    }
-
-    displayCards() {
-
-        console.log('crt list', this.state.listCard)
+    displayCards=()=> {
         let dispList = this.state.listCard.map((card, index) =>
             <li key={index}>
                 <Card save={this.onModifyCard} add={this.onAddCard} delete={this.onDeleteCard} cardMode="display" id={card.id} last_four={card.last_four} brand={card.brand} expired_at={card.expired_at} />
             </li>
         );
-
         return (<ul>{dispList}
             {this.state.addCard ? this.addCardComp() : null}
         </ul>);
