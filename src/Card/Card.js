@@ -64,7 +64,7 @@ class Card extends Component {
         
         //this.props.deleteCardComp()
         console.log('addin card')
-        sessionStorage.setItem('crt_user_id', 3)
+        //sessionStorage.setItem('crt_user_id', 3)
         let crt_card = {
             id: Data.Cards.length,
             last_four: this.state.last_four.substr(this.state.last_four.length - 4),

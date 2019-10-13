@@ -22,6 +22,7 @@ class Login extends Component {
         for (let i = 0; i < Data.Accounts.length; i++) {
             if (Data.Accounts[i].email === this.state.email ) {
                 if(Data.Accounts[i].password===this.state.password){
+                    this.props.crt_user=Data.Accounts[i].id;  
                     sessionStorage.setItem('crt_user_id', Data.Accounts[i].id);
                     console.log('Signup succesful');
                     break;

@@ -48,7 +48,7 @@ class Transfert extends Component {
         jsonData.transfers.push(add_transfer);
         console.log("In transfert");
         console.log(jsonData.transfers);/*
-        var json = JSON.stringify(add_transfer);
+        v   ar json = JSON.stringify(add_transfer);
         fs.writeFile("../Data/Data.json", json, (err) => {
             if (err) {
                 console.error(err);
