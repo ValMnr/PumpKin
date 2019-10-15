@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import Data from '../Data/Data.js'
 import { Button } from '../../node_modules/reactstrap'
-import Navbar from '../Navbar/Navbar.js'
-import { BrowserRouter, Route, Link, withRouter, Redirect } from 'react-router-dom';
+import {Link, Redirect } from 'react-router-dom';
+var jsonData = require('../Data/Data.json')
 
 
 class Login extends Component {
@@ -11,7 +10,7 @@ class Login extends Component {
         this.state = {
             email: '',
             password: '',
-            redirect:false
+            redirect: false
         }
         this.connect = this.connect.bind(this);
         this.handleChange = this.handleChange.bind(this)
@@ -23,62 +22,36 @@ class Login extends Component {
     handleChange(event) {
         this.setState({ [event.target.name]: event.target.value })
     }
-    componentDidMount(){
-        console.log('com did mount : ',localStorage.getItem("logged") )
-        
-        //window.location = "localhost:3000/"
 
-        
-    }
-
-    componentDidUpdate(){
-        console.log("comp update / redirecting:",this.state.redirect)
-
-  
-
-        console.log("redirected")
-
-    }
-
-    async  fastLogin () {
+    async  fastLogin() {
         console.log("Before login test, current logged state : ", localStorage.getItem('logged'))
 
-
-        let url = "localhost:3000/"
-
         localStorage.setItem('logged', true)
-
         window.location.reload(true);
 
         console.log("After login test, current logged state : ", localStorage.getItem('logged'))
-        this.setState({redirect:true})
-       
+        this.setState({ redirect: true })
+
     }
- 
+
     fastLogout() {
         localStorage.clear()
         console.log("After logout current logged state : ", localStorage.getItem('logged'))
-        if(localStorage.getItem('logged')===false){
+        if (localStorage.getItem('logged') === false) {
             console.log("loffed out")
         }
-
         window.location.reload(true)
-      
-        //window.location.replace= "localhost:3000/"
-            //window.location = "localhost:3000/"
-        //window.location.reload()
-        //window.location.replace("localhost:3000/")
-       // setTimeout( window.location.reload()  , 3000); 
-    
     }
 
     connect() {
-        for (let i = 0; i < Data.Accounts.length; i++) {
-            if (Data.Accounts[i].email === this.state.email) {
-                if (Data.Accounts[i].password === this.state.password) {
-                    this.props.crt_user = Data.Accounts[i].id;
-                    sessionStorage.setItem('crt_user_id', Data.Accounts[i].id);
+        let accounts = jsonData['accounts']
+        for (let i = 0; i < accounts.length; i++) {
+            if (accounts[i].email === this.state.email) {
+                if (accounts[i].password === this.state.password) {
+                    localStorage.setItem('crt_user_id', accounts[i].id);
+                    localStorage.setItem('logged',true);
                     console.log('Signup succesful');
+                    window.location.reload(true)
                     break;
                 }
             }
@@ -92,28 +65,25 @@ class Login extends Component {
                 <Redirect to={'/'} />
             )
         }
-        else{
+        else {
 
-        return (
-            <div className="col">
-                <div className="row">
-                    <input type="text" value={this.state.email} onChange={this.handleChange} name="email" placeholder="Email"></input>
+            return (
+                <div className="col">
+                    <div className="row">
+                        <input type="text" value={this.state.email} onChange={this.handleChange} name="email" placeholder="Email"></input>
+                    </div>
+                    <div className="row">
+                        <input type="text" value={this.state.password} onChange={this.handleChange} name="password" placeholder="Password"></input>
+                    </div>
+                    <div className="row">
+                        <Button color="danger" title="Login test" onClick={this.connect} >Login</Button>
+                    </div>
+
+                    <Link to="/" ><Button color="danger" title="Login test" onClick={this.fastLogin} >Login Test</Button></Link>    
                 </div>
-                <div className="row">
-                    <input type="text" value={this.state.password} onChange={this.handleChange} name="password" placeholder="Password"></input>
-                </div>
-                <div className="row">
-                    <button name="Log-in" onClick={this.connect} ></button>
-                </div>
 
-                <Link to="/" ><Button color="danger" title="Login test" onClick={this.fastLogin} >Login Test</Button></Link>
-
-                <Link to="/"><Button color="danger" title="Login test" onClick={this.fastLogout} >Logout</Button></Link>
-
-            </div>
-
-        )
-    }
+            )
+        }
 
     }
 
