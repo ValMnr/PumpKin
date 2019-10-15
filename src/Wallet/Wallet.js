@@ -93,7 +93,7 @@ class Wallet extends Component {
             "brand": crt_card.brand,
             "expired_at": crt_card.expired_at,
             "user_id": sessionStorage.getItem('crt_user_id')
-        }
+        }   
 
         for (var i in newList) {
             if (newList[i].id == crt_card.id) {
@@ -159,3 +159,4 @@ class Wallet extends Component {
 }
 
 export default Wallet
+

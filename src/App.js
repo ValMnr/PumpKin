@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {Component}from 'react';
 import './App.css';
 import { Button } from '../node_modules/reactstrap'
 
-import { BrowserRouter, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Route, Link, withRouter} from 'react-router-dom';
 
 //import Login from './Account/Login.js';
 //import Signup from './Account/Signup.js'
@@ -19,11 +19,8 @@ import Signup from './Account/Signup';
 function App() {
  
 
-  sessionStorage.setItem('crt_user_id', null)
-  console.log("crt user",sessionStorage.getItem('crt_user_id'))
-
- 
-
+  //localStorage.clear()
+  
   return (
     <div className="">
       <BrowserRouter>
@@ -33,7 +30,6 @@ function App() {
         </header>
         <Navbar />
 
-        <Button color="primary" title="Transfer" onClick={sessionStorage.setItem('crt_user_id','1')} >Login Test</Button>
 
         <Route exact path="/" component={() => <Link to="/transfert"><Button color="primary" title="Transfer" name="transfert" >Transfert</Button></Link>} />
         <Route exact path="/" component={() => <Link to="/wallet"><Button color="primary" title="Transfer" name="wallet" >Wallet</Button></Link>} />
@@ -52,6 +48,6 @@ function App() {
     </div>
   );
 }
-
 export default App;
+
 
