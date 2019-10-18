@@ -1,17 +1,11 @@
 import React, { Component } from 'react';
-import Data from '../Data/Data.js'
 import {Collapse,
     Navbar,
     NavbarToggler,
     NavbarBrand,
     Nav,
     NavItem,
-    NavLink,
-    UncontrolledDropdown,
-    DropdownToggle,
-    DropdownMenu,
-    DropdownItem  } from '../../node_modules/reactstrap'
-import {BrowserRouter, Route, Link } from 'react-router-dom';
+    NavLink  } from '../../node_modules/reactstrap'
 
 class NavBar extends Component {
     constructor(props) {
@@ -21,11 +15,7 @@ class NavBar extends Component {
             logged:localStorage.getItem('logged'),
 
         }  
-
         this.fastLogout = this.fastLogout.bind(this);
-       
-      
-    
     }
 
     
@@ -34,25 +24,17 @@ class NavBar extends Component {
       console.log("After logout current logged state : ", localStorage.getItem('logged'))
       if(localStorage.getItem('logged')===false){
           console.log("loffed out")
-      }
-
-    
-      //window.location.replace= "localhost:3000/"
-          //window.location = "localhost:3000/"
-      //window.location.reload()
-      //window.location.replace("localhost:3000/")
-     // setTimeout( window.location.reload()  , 3000); 
-  
+      }  
   }
 
     componentDidMount(){
       this.setState({logged:localStorage.getItem('logged')})
       console.log("mounted - state =",this.state.logged)
-
+/**
       if(sessionStorage.getItem("logged")){
         window.location = "localhost:3000/"
       }
-
+ */
     }  
     
     toggle = () => {
@@ -61,7 +43,7 @@ class NavBar extends Component {
 
     displayLogged(){
 
-      console.log("display  logged - uid/logged:",sessionStorage.getItem('crt_user_id'),sessionStorage.getItem('logged'))
+      console.log("display  logged - uid/logged:",localStorage.getItem('crt_user_id'),localStorage.getItem('logged'))
       return(
         <div>
         <Navbar color="light" light expand="md">
@@ -89,7 +71,7 @@ class NavBar extends Component {
     )
     }
     displayNotLogged(){
-      console.log("display not logged - uid/logged:",sessionStorage.getItem('crt_user_id'),sessionStorage.getItem('logged'))
+      console.log("display not logged - uid/logged:",localStorage.getItem('crt_user_id'),localStorage.getItem('logged'))
 
       return(
         <div>
@@ -109,72 +91,13 @@ class NavBar extends Component {
           </Collapse>
         </Navbar>
         </div>
-
         )
-      
-    }
-
-    display(){
-        console.log("test",this.props.crt_user)
-        if(this.props.crt_user!==undefined){
-            return(
-                <div>
-                <Navbar color="light" light expand="md">
-                  <NavbarBrand href="/">Pumpkin</NavbarBrand>
-                  <NavbarToggler onClick={this.toggle} />
-                  <Collapse isOpen={this.state.isOpen} navbar>
-                    <Nav className="ml-auto" navbar>
-                      <NavItem>
-                        <NavLink href="/wallet/">Porte-feuille</NavLink>
-                      </NavItem>
-                      <NavItem>
-                        <NavLink href="/transfert/">Transfert</NavLink>
-                      </NavItem>
-                      <NavItem>
-                        <NavLink href="/account/">Mon Compte</NavLink>
-                      </NavItem>
-                      <NavItem>
-                        <NavLink href="/">Deconnexion</NavLink>
-                      </NavItem>
-                    </Nav>
-                  </Collapse>
-                </Navbar>
-              </div>
-
-            )
-        }else{
-            return(
-                <div>
-                     <Navbar color="light" light expand="md">
-                  <NavbarBrand href="/">Pumpkin</NavbarBrand>
-                  <NavbarToggler onClick={this.toggle} />
-                  <Collapse isOpen={this.state.isOpen} navbar>
-                    <Nav className="ml-auto" navbar>
-               
-                      <NavItem>
-                        <NavLink href="/login/"  >Se connecter</NavLink>
-                      </NavItem>
-                      <NavItem>
-                        <NavLink href="/signup/">Créer un compte</NavLink>
-                      </NavItem>
-                    </Nav>
-                  </Collapse>
-                </Navbar>
-                </div>
-
-                )
-
-        }
-        
     }
 
     render(){
         return(
-
             <div>{this.state.logged ? this.displayLogged() : this.displayNotLogged()}
             </div>
-
-
         )
     }
             

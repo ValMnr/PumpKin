@@ -41,7 +41,7 @@ class Transfert extends Component {
     transfert() {
         let add_transfer = {
             id: Data.Transfers.length,
-            debited_wallet_id: parseInt(sessionStorage.getItem('crt_user_id'), 10) ,
+            debited_wallet_id: parseInt(localStorage.getItem('crt_user_id'), 10) ,
             credited_wallet_id:  parseInt(this.state.recipient, 10),
             amount: parseInt(this.state.amount, 10)
         }

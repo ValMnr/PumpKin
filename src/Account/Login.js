@@ -27,6 +27,8 @@ class Login extends Component {
         console.log("Before login test, current logged state : ", localStorage.getItem('logged'))
 
         localStorage.setItem('logged', true)
+        localStorage.setItem('crt_user_id', '1')
+
         window.location.reload(true);
 
         console.log("After login test, current logged state : ", localStorage.getItem('logged'))
@@ -50,7 +52,7 @@ class Login extends Component {
                 if (accounts[i].password === this.state.password) {
                     localStorage.setItem('crt_user_id', accounts[i].id);
                     localStorage.setItem('logged',true);
-                    console.log('Signup succesful');
+                    console.log('Signup succesful, id :',localStorage.getItem('crt_user_id'));
                     window.location.reload(true)
                     break;
                 }

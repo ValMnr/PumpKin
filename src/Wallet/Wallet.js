@@ -39,8 +39,9 @@ class Wallet extends Component {
     }
 
     loadCards() {
+
         var newList = jsonData.cards.filter(function (card) {
-            return card.user_id == sessionStorage.getItem('crt_user_id')
+            return card.user_id === parseInt(localStorage.getItem('crt_user_id'))
         });
         console.log('new list is', newList)
         this.setState({ listCard: newList })
@@ -72,7 +73,7 @@ class Wallet extends Component {
             "last_four": crt_card.last_four,
             "brand": crt_card.brand,
             "expired_at": crt_card.expired_at,
-            "user_id": sessionStorage.getItem('crt_user_id')
+            "user_id": localStorage.getItem('crt_user_id')
         }
         let newList = this.state.listCard;
         newList.push(addedCard)
@@ -92,11 +93,11 @@ class Wallet extends Component {
             "last_four": crt_card.last_four,
             "brand": crt_card.brand,
             "expired_at": crt_card.expired_at,
-            "user_id": sessionStorage.getItem('crt_user_id')
+            "user_id": localStorage.getItem('crt_user_id')
         }   
 
         for (var i in newList) {
-            if (newList[i].id == crt_card.id) {
+            if (newList[i].id === crt_card.id) {
                 newList[i] = modifiedCard;
                 break;
             }
@@ -121,7 +122,7 @@ class Wallet extends Component {
     getCards() {
         let Cards = []
         for (var i = 0; i < Data.Cards.length; i++) {
-            if (parseInt(sessionStorage.getItem('crt_user_id')) === parseInt(Data.Cards[i].user_id)) {
+            if (parseInt(localStorage.getItem('crt_user_id')) === parseInt(Data.Cards[i].user_id)) {
                 let crt_card = Data.Cards[i];
                 Cards.push(crt_card);
                 console.log('card added', crt_card)

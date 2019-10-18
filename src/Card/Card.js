@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import Data from '../Data/Data.js'
 import { Button } from '../../node_modules/reactstrap'
-import Wallet from '../Wallet/Wallet.js'
+const fs = require('fs')
+var jsonData = require('../Data/Data.json')
+
 
 class Card extends Component {
     constructor(props) {
@@ -13,7 +15,7 @@ class Card extends Component {
             brand: this.props.brand,
             expired_at: this.props.expired_at,
             form_val: true,
-            user_id:sessionStorage.getItem('crt_user_id'),
+            user_id:localStorage.getItem('crt_user_id'),
             cardMode: this.props.cardMode
         }
 
@@ -23,6 +25,8 @@ class Card extends Component {
         this.isFormValid = this.isFormValid.bind(this);
         //this.modify = this.modify.bind(this);
     }
+
+
 
     assignValue = () => {
         if (this.props.cardMode === "modify") {
@@ -66,15 +70,17 @@ class Card extends Component {
         console.log('addin card')
         //sessionStorage.setItem('crt_user_id', 3)
         let crt_card = {
-            id: Data.Cards.length,
+            id: jsonData["accounts"].length,
             last_four: this.state.last_four.substr(this.state.last_four.length - 4),
             brand: this.state.brand,
             expired_at: this.state.expired_at,
-            user_id: sessionStorage.getItem('crt_user_id')
+            user_id: localStorage.getItem('crt_user_id')
         }
-        Data.Cards.push(crt_card);
-        console.log(Data.Cards);
-        //this.props.addCard =false;
+
+        fs.writeFile('./cards.json', JSON.stringify(crt_card), (err) => {
+            if (err) console.log('Error adding card:', err)
+        })
+
         this.cleanForm();
         
     }

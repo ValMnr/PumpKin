@@ -1,25 +1,23 @@
-import React, {Component}from 'react';
+import React from 'react';
 import './App.css';
 import { Button } from '../node_modules/reactstrap'
 
-import { BrowserRouter, Route, Link, withRouter} from 'react-router-dom';
+import { BrowserRouter, Route, Link} from 'react-router-dom';
 
 //import Login from './Account/Login.js';
 //import Signup from './Account/Signup.js'
-import Card from './Card/Card.js'
 import Wallet from './Wallet/Wallet.js'
 import Transfert from './Transfert/Transfert';
 import Navbar from './Navbar/Navbar.js'
 import Login from './Account/Login';
 import Signup from './Account/Signup';
-
+import Account from './Account/Accounts'
 
 
 
 function App() {
  
 
-  //localStorage.clear()
   
   return (
     <div className="">
@@ -37,7 +35,7 @@ function App() {
         
         <Route path="/transfert" component={() => <Transfert />} />
         <Route path="/wallet" component={() => <Wallet />} />
-        <Route path="/account" component={() => <Button />} />
+        <Route path="/account" component={() => <Account mode="display" />} />
 
         <Route path="/login" component={() => <Login />} />
         <Route path="/signup" component={() => <Signup />} />

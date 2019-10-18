@@ -57,15 +57,18 @@
     "wallets": [
         {
             "id": 0,
-            "user_id": 0
+            "user_id": 0,
+            "balance": 15000
         },
         {
             "id": 1,
-            "user_id": 1
+            "user_id": 1,
+            "balance": 13000
         },
         {
             "id": 2,
-            "user_id": 2
+            "user_id": 2,
+            "balance": 14000
         }
     ],
     "payins": [
