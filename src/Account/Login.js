@@ -47,6 +47,7 @@ class Login extends Component {
             balance: crt_wall[0].balance
         }
         localStorage.setItem("user_info", JSON.stringify(crt_user))
+        localStorage.setItem("user_balance", crt_wall[0].balance)
     }
 
 
@@ -87,6 +88,10 @@ class Login extends Component {
                     localStorage.setItem('logged',true);
                     console.log('Signup succesful, id :',localStorage.getItem('crt_user_id'));
                     window.location.reload(true)
+                    this.setState({ redirect: true })
+
+                    this.loadLocalStorage();
+            
                     break;
                 }
             }

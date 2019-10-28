@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
 import Data from '../Data/Data.js';
 import '../index.css';
-import Card from '../Card/Card';
 //import React from 'react';
-import Cards from 'react-credit-cards';
-import { Button,  Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from '../../node_modules/reactstrap'
-import { Container, Row, Col } from 'reactstrap';
+import { Button, DropdownItem } from '../../node_modules/reactstrap'
+import { Col } from 'reactstrap';
 var jsonData = require('../Data/Data.json');
-var fs = require("browserify-fs");
 
 class Payout extends Component {
     constructor(props) {
@@ -72,6 +69,9 @@ class Payout extends Component {
         jsonData.payouts.push(add_payouts);
         
         console.log(jsonData.payouts);
+        let new_balance = localStorage.getItem('user_balance')-this.state.amount
+        localStorage.setItem('user_balance',new_balance)
+        
         
         this.cleanForm();
 
@@ -85,7 +85,7 @@ class Payout extends Component {
         console.log(localStorage.getItem('crt_user_id'));
        // console.log(parseInt(localStorage.getItem('crt_user_id'), 10));
         var newList = jsonData.cards.filter(function (card) {
-            return card.user_id == parseInt(localStorage.getItem('crt_user_id'), 10);
+            return card.user_id === parseInt(localStorage.getItem('crt_user_id'), 10);
         });
         console.log('new list is', newList)
         this.setState({ listCard: newList })

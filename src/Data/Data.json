@@ -17,7 +17,7 @@
             "is_admin": false
         }
     ],
-    "cards": [
+    "cards": [  
         {
             "id": 0,
             "last_four": 2492,
@@ -58,17 +58,17 @@
         {
             "id": 0,
             "user_id": 0,
-            "balance": 15000
+            "balance": 15011
         },
         {
             "id": 1,
             "user_id": 1,
-            "balance": 13000
+            "balance": 13012
         },
         {
             "id": 2,
             "user_id": 2,
-            "balance": 14000
+            "balance": 14045
         }
     ],
     "payins": [

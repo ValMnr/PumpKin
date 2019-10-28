@@ -40,7 +40,6 @@ class Signup extends Component {
     }
 
     signup() {
-
         let crt_user = {
             id: jsonData['accounts'].length,
             first_name: this.state.first_name,
@@ -50,7 +49,6 @@ class Signup extends Component {
             is_admin: 'false',
             balance:0
         }
-        //NEED TO ADD TO FILE
         this.cleanForm();
         localStorage.setItem('logged', true);
         localStorage.setItem('crt_user_id', crt_user.id);
@@ -58,7 +56,7 @@ class Signup extends Component {
         window.location.reload(true)
 
         localStorage.setItem("user_info", JSON.stringify(crt_user))
-
+        localStorage.setItem("user_balance", 0)
 
     }
 
