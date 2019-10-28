@@ -12,6 +12,8 @@ import Navbar from './Navbar/Navbar.js'
 import Login from './Account/Login';
 import Signup from './Account/Signup';
 import Account from './Account/Accounts'
+import Payin from './Payin/Payin';
+import Payout from './Payout/Payout';
 
 
 
@@ -33,6 +35,8 @@ function App() {
         <Route exact path="/" component={() => <Link to="/wallet"><Button color="primary" title="Transfer" name="wallet" >Wallet</Button></Link>} />
         
         
+        <Route path="/payin" component = {() => <Payin />}></Route>
+        <Route path="/payout" component = {() => <Payout />}></Route>
         <Route path="/transfert" component={() => <Transfert />} />
         <Route path="/wallet" component={() => <Wallet />} />
         <Route path="/account" component={() => <Account mode="display" />} />

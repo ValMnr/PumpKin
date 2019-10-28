@@ -11,17 +11,15 @@ class Wallet extends Component {
         this.state = {
             listCard: [],
             addCard: false
-
         };
 
         this.addCardComp = this.addCardComp.bind(this)
         this.addCard = this.addCard.bind(this)
-
         this.onModifyCard = this.onModifyCard.bind(this)
     }
 
-    addCard(){
-        this.setState({addCard:true})
+    addCard() {
+        this.setState({ addCard: true })
     }
 
     componentDidMount() {
@@ -32,48 +30,29 @@ class Wallet extends Component {
         catch (e) {
             alert(e);
         }
-
-    }
-    componentDidUpdate() {
-        console.log("post update", this.state.listCard)
     }
 
     loadCards() {
-
-        var newList = jsonData.cards.filter(function (card) {
-            return card.user_id === parseInt(localStorage.getItem('crt_user_id'))
-        });
-        console.log('new list is', newList)
-        this.setState({ listCard: newList })
-
+        this.setState({ listCard: JSON.parse(localStorage.getItem("user_cards")) })
     }
 
-    onDeleteCard = crt_card => { //PB sur la suppression
-
-        let crt_id = crt_card.id
-        console.log('crt_cart_id', crt_id)
-        console.log("before delete", this.state.listCard)
-
+    onDeleteCard = crt_card => {
         const items = this.state.listCard.filter(item =>
-            item['id'] !== crt_id);
-
-        console.log("after delete", items)
+            item['id'] !== crt_card.id);
         this.setState({ listCard: items });
-
-        delete jsonData['cards'][crt_card.id]
-        console.log(crt_id)
+        localStorage.setItem('user_cards', JSON.stringify(items))
+        console.log("post delete", localStorage.getItem('user_cards'))
 
     }
 
     onAddCard = crt_card => {
         console.log("adding card")
-
         let addedCard = {
             "id": jsonData['cards'].length,
-            "last_four": crt_card.last_four,
+            "last_four": parseInt(crt_card.last_four),
             "brand": crt_card.brand,
             "expired_at": crt_card.expired_at,
-            "user_id": localStorage.getItem('crt_user_id')
+            "user_id": parseInt(localStorage.getItem('crt_user_id'))
         }
         let newList = this.state.listCard;
         newList.push(addedCard)
@@ -81,32 +60,27 @@ class Wallet extends Component {
             listCard: newList,
             addCard: false
         })
-
+        localStorage.setItem('user_cards', JSON.stringify(newList))
     }
 
     onModifyCard = crt_card => {
-        console.log("Modifying card")
         let newList = this.state.listCard;
-
         let modifiedCard = {
             "id": crt_card.id,
-            "last_four": crt_card.last_four,
+            "last_four": parseInt(crt_card.last_four),
             "brand": crt_card.brand,
             "expired_at": crt_card.expired_at,
-            "user_id": localStorage.getItem('crt_user_id')
-        }   
-
+            "user_id": parseInt(localStorage.getItem('crt_user_id'))
+        }
         for (var i in newList) {
             if (newList[i].id === crt_card.id) {
                 newList[i] = modifiedCard;
                 break;
             }
         }
-        console.log(newList)
+        console.log("modified card list",newList)
         this.setState({ listCard: newList })
-
-
-
+        localStorage.setItem('user_cards', JSON.stringify(newList))
     }
 
     addCardComp() {
@@ -115,48 +89,30 @@ class Wallet extends Component {
                 <Card cardMode="add" add={this.onAddCard} id='' last_four='' brand='' expired_at='' onChange={this.deleteCardComp} action={this.removeAddCard} />
             </li></div>
         )
-
     }
 
 
-    getCards() {
-        let Cards = []
-        for (var i = 0; i < Data.Cards.length; i++) {
-            if (parseInt(localStorage.getItem('crt_user_id')) === parseInt(Data.Cards[i].user_id)) {
-                let crt_card = Data.Cards[i];
-                Cards.push(crt_card);
-                console.log('card added', crt_card)
-            }
-        }
-        console.log(Cards)
-        return Cards
-    }
 
-    displayCards=()=> {
+
+    displayCards = () => {
         let dispList = this.state.listCard.map((card, index) =>
             <li key={index}>
-                <Card save={this.onModifyCard} add={this.onAddCard} delete={this.onDeleteCard} cardMode="display" id={card.id} last_four={card.last_four} brand={card.brand} expired_at={card.expired_at} />
+                <Card save={this.onModifyCard} add={this.onAddCard} delete={this.onDeleteCard} cardMode="display" id={card.id} last_four={parseInt(card.last_four)} brand={card.brand} expired_at={card.expired_at} />
             </li>
         );
         return (<ul>{dispList}
             {this.state.addCard ? this.addCardComp() : null}
         </ul>);
-
     }
 
     render() {
-
         return (
-
-
             <div className="">
                 {this.displayCards()}
                 <Button color="primary" title="Add Card" name="addCard" onChange={this.handleChange} onClick={this.addCard} >Add Card</Button>{' '}
             </div>
         );
-
     };
-
 }
 
 export default Wallet

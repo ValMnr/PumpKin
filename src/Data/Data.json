@@ -6,7 +6,7 @@
             "last_name": "Monnier",
             "email": "val.mon@orange.fr",
             "password": "azerty",
-            "is_admin": "true"
+            "is_admin": true
         },
         {
             "id": 1,
@@ -14,43 +14,43 @@
             "last_name": "Pierre",
             "email": "jp@orange.fr",
             "password": "azerty",
-            "is_admin": "false"
+            "is_admin": false
         }
     ],
     "cards": [
         {
             "id": 0,
-            "last_four": "**** **** **** 2492",
+            "last_four": 2492,
             "brand": "visa",
-            "expired_at": "01/22",
+            "expired_at": "2020-01",
             "user_id": 0
         },
         {
             "id": 1,
-            "last_four": "**** **** **** 2498",
+            "last_four": 2559,
             "brand": "revolut",
-            "expired_at": "02/22",
+            "expired_at": "2020-01",
             "user_id": 0
         },
         {
             "id": 2,
-            "last_four": "**** **** **** 9200",
+            "last_four":2424,
             "brand": "electron",
-            "expired_at": "01/22",
+            "expired_at": "2020-01",
             "user_id": 1
         },
         {
             "id": 3,
-            "last_four": "**** **** **** 1207",
+            "last_four": 2342,
             "brand": "master",
-            "expired_at": "11/23",
+            "expired_at": "2020-01",
             "user_id": 1
         },
         {
             "id": 4,
-            "last_four": "**** **** **** 1207",
+            "last_four": 1207,
             "brand": "master",
-            "expired_at": "11/23",
+            "expired_at": "2020-01",
             "user_id": 0
         }
     ],

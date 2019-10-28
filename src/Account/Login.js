@@ -18,6 +18,37 @@ class Login extends Component {
         this.fastLogout = this.fastLogout.bind(this)
     }
 
+    loadLocalStorage=()=>{
+            
+        var cardList = jsonData.cards.filter(function (card) {
+            return card.user_id === parseInt(localStorage.getItem('crt_user_id'))
+        });
+        
+        localStorage.setItem("user_cards", JSON.stringify(cardList))
+
+
+        var crt_acc = jsonData.accounts.filter(function (acc) {
+            return acc.id === parseInt(localStorage.getItem('crt_user_id'))
+        });
+        console.log('Account is :', crt_acc[0])
+
+
+        var crt_wall = jsonData.wallets.filter(function (wall) {
+            return wall.id === parseInt(localStorage.getItem('crt_user_id'))
+        });
+        console.log('Wallet is :', crt_wall[0])
+
+        
+        let crt_user = {
+            first_name: crt_acc[0].first_name,
+            last_name: crt_acc[0].last_name,
+            email: crt_acc[0].email,
+            password: crt_acc[0].password,
+            balance: crt_wall[0].balance
+        }
+        localStorage.setItem("user_info", JSON.stringify(crt_user))
+    }
+
 
     handleChange(event) {
         this.setState({ [event.target.name]: event.target.value })
@@ -33,6 +64,8 @@ class Login extends Component {
 
         console.log("After login test, current logged state : ", localStorage.getItem('logged'))
         this.setState({ redirect: true })
+
+        this.loadLocalStorage();
 
     }
 

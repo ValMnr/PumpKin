@@ -33,7 +33,7 @@ class Account extends Component {
         console.log("post update, state ->", this.state)
     }
 
-    handleChange(event) {
+    handleChange= event=> {
         this.setState({ [event.target.name]: event.target.value })
     }
 
@@ -43,36 +43,34 @@ class Account extends Component {
       
     }
 
-    saveModif(){
-        
-    }
-
-    loadData() {
-
-        var crt_acc = jsonData.accounts.filter(function (acc) {
-            return acc.id === parseInt(localStorage.getItem('crt_user_id'))
-        });
-        console.log('Account is :', crt_acc[0])
-
-        var crt_wall = jsonData.wallets.filter(function (wall) {
-            return wall.id === parseInt(localStorage.getItem('crt_user_id'))
-        });
-        console.log('Wallet is :', crt_wall[0])
-
-
-
-        this.setState({
-            first_name: crt_acc[0].first_name,
-            last_name: crt_acc[0].last_name,
-            email: crt_acc[0].email,
-            password: crt_acc[0].password,
-            balance: crt_wall[0].balance
-        })
-
+    saveModif=()=>{
         console.log(this.state)
 
+        this.setState({modeAcc:"display"})
+       
+       
+        let crt_user = {
+            first_name: this.state.first_name,
+            last_name: this.state.last_name,
+            email: this.state.email,
+            password:this.state.password,
+            balance: this.state.balance
+        }      
+        localStorage.setItem('user_info',JSON.stringify(crt_user))
+    }
 
+    loadData=()=> {
 
+        let crt_user_info = JSON.parse(localStorage.getItem('user_info'))
+        console.log("TESTEST",crt_user_info.first_name)
+        this.setState({
+            first_name: crt_user_info.first_name,
+            last_name: crt_user_info.last_name,
+            email: crt_user_info.email,
+            password: crt_user_info.password,
+            balance: crt_user_info.balance
+        })
+        console.log(this.state)
     }
 
     changeInformation() {

@@ -30,11 +30,7 @@ class NavBar extends Component {
     componentDidMount(){
       this.setState({logged:localStorage.getItem('logged')})
       console.log("mounted - state =",this.state.logged)
-/**
-      if(sessionStorage.getItem("logged")){
-        window.location = "localhost:3000/"
-      }
- */
+
     }  
     
     toggle = () => {
@@ -53,6 +49,12 @@ class NavBar extends Component {
             <Nav className="ml-auto" navbar>
               <NavItem>
                 <NavLink href="/wallet/">Porte-feuille</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink href="/payin/">Pay In</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink href="/payout/">Pay Out</NavLink>
               </NavItem>
               <NavItem>
                 <NavLink href="/transfert/">Transfert</NavLink>

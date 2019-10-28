@@ -41,20 +41,25 @@ class Signup extends Component {
 
     signup() {
 
-        let crt_acc = {
+        let crt_user = {
             id: jsonData['accounts'].length,
             first_name: this.state.first_name,
             last_name: this.state.last_name,
             email: this.state.email,
             password: this.state.password,
-            is_admin: 'false'
+            is_admin: 'false',
+            balance:0
         }
         //NEED TO ADD TO FILE
         this.cleanForm();
         localStorage.setItem('logged', true);
-        localStorage.setItem('crt_user_id', crt_acc.id);
+        localStorage.setItem('crt_user_id', crt_user.id);
         console.log('Succesfully added account | user id:',localStorage.getItem('crt_user_id'));
         window.location.reload(true)
+
+        localStorage.setItem("user_info", JSON.stringify(crt_user))
+
+
     }
 
     render() {

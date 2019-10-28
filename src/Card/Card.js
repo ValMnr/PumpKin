@@ -15,12 +15,11 @@ class Card extends Component {
             brand: this.props.brand,
             expired_at: this.props.expired_at,
             form_val: true,
-            user_id:localStorage.getItem('crt_user_id'),
+            user_id: parseInt(localStorage.getItem('crt_user_id')),
             cardMode: this.props.cardMode
         }
 
         this.assignValue = this.assignValue.bind(this);
-        this.addCard = this.addCard.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.isFormValid = this.isFormValid.bind(this);
         //this.modify = this.modify.bind(this);
@@ -48,72 +47,41 @@ class Card extends Component {
     cleanForm = () => {
         var elements = document.getElementsByTagName("input");
         for (var i = 0; i < elements.length; i++) {
-            if (elements[i].type === "text" && elements[i].className==="add" ){
+            if (elements[i].type === "text" && elements[i].className === "add") {
                 elements[i].value = "";
             }
         }
     }
 
     isFormValid = () => {
-        const { last_four, brand, expired_at } = this.state
-        if (last_four.length > 10 && brand.length > 0 && expired_at.length > 0) {
-            this.setState({ form_val: false });
-        }
+            const { last_four, brand } = this.state
+            if (last_four.length === 4 && brand.length > 0) {
+                this.setState({ form_val: false });
+            }
+        
     }
     handleChange(event) {
         this.setState({ [event.target.name]: event.target.value })
         this.isFormValid()
-    }
-    addCard() {
-        
-        //this.props.deleteCardComp()
-        console.log('addin card')
-        //sessionStorage.setItem('crt_user_id', 3)
-        let crt_card = {
-            id: jsonData["accounts"].length,
-            last_four: this.state.last_four.substr(this.state.last_four.length - 4),
-            brand: this.state.brand,
-            expired_at: this.state.expired_at,
-            user_id: localStorage.getItem('crt_user_id')
-        }
-
-        fs.writeFile('./cards.json', JSON.stringify(crt_card), (err) => {
-            if (err) console.log('Error adding card:', err)
-        })
-
-        this.cleanForm();
-        
-    }
-
-
-    deleteCard() {
-        console.log("Deleting Card");
-        console.log(this.props)
-        for (var i = 0; i < Data.Cards.length; i++) {
-            if (Data.Cards[i] === parseInt(this.state.id)) {
-                Data.Cards.splice(i, 1);
-                console.log('Card deleted');
-            }
-        }
-        console.log("Card deleted");
 
     }
-
-    modify =()=>{
-        //this.props.modify(this.state)
-        this.setState({cardMode:"modify"})
+      
+    modify = () => {
+        this.setState({ cardMode: "modify" })
     }
-    delete =()=>{
+    delete = () => {
+        console.log("Deleting card")
         this.props.delete(this.state)
     }
-    add =()=>{
+    add = () => {
         console.log("adding card / child")
         this.props.add(this.state)
     }
-    save = () =>{
+    save = () => {
         console.log("saving modified card / child")
+        console.log(this.state.expired_at)
         this.props.save(this.state)
-        this.setState({cardMode:'display'})
+        this.setState({ cardMode: 'display' })
 
     }
 
@@ -123,13 +91,13 @@ class Card extends Component {
             return (
                 <div className="col">
                     <div className="row">
-                        <input className="add" type="text" value={this.state.last_four} onChange={this.handleChange} name="last_four" placeholder="Card Number"></input>
+                        <input className="add" type="text" value={this.state.last_four} onChange={this.handleChange} name="last_four" placeholder="Last 4 number of Card"></input>
                     </div>
                     <div className="row">
                         <input className="add" type="text" value={this.state.brand} onChange={this.handleChange} name="brand" placeholder="Card Type"></input>
                     </div>
-                    <div className="row">
-                        <input className="add" type="text" value={this.state.expired_at} onChange={this.handleChange} name="expired_at" placeholder="Expiring on"></input>
+                    <div>
+                        <input type="month"   name="expired_at" min="2019-10" value={this.state.expired_at} onChange={this.handleChange} />
                     </div>
                     <div className="row">
                         <Button color="primary" title="Add Card" name="form_val" onChange={this.handleChange} onClick={this.add} disabled={this.state.form_val}>Save</Button>{' '}
@@ -146,8 +114,8 @@ class Card extends Component {
                     <div className="row">
                         <input type="text" value={this.state.brand} onChange={this.handleChange} name="brand" placeholder={this.state.brand}></input>
                     </div>
-                    <div className="row">
-                        <input type="text" value={this.state.expired_at} onChange={this.handleChange} name="expired_at" placeholder={this.state.expired_at}></input>
+                    <div>
+                        <input type="month"   name="expired_at" min="2019-10" value={this.state.expired_at} onChange={this.handleChange} />
                     </div>
                     <div className="row">
                         <Button color="primary" title="Modify Card" name="form_val" onChange={this.handleChange} onClick={this.save} disabled={this.state.form_val}>Save</Button>{' '}
@@ -164,8 +132,8 @@ class Card extends Component {
                     <div className="row">
                         <input type="text" value={this.state.brand} onChange={this.handleChange} name="brand" readOnly></input>
                     </div>
-                    <div className="row">
-                        <input type="text" value={this.state.expired_at} onChange={this.handleChange} name="expired_at" readOnly ></input>
+                    <div>
+                        <input type="month"   name="expired_at" min="2019-10" value={this.state.expired_at} onChange={this.handleChange} readOnly />
                     </div>
                     <div className="row">
                         <Button color="primary" title="Modify Card" name="form_val" onChange={this.handleChange} onClick={this.modify} >Modify</Button>{' '}
