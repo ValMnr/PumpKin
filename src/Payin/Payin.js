@@ -15,7 +15,8 @@ class Payin extends Component {
             dropdownOpen: false, 
             prevState: '',
             listCard: [],
-            selected_card: ''
+            selected_card: '',
+            first: true
         }
         this.paiment = this.paiment.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -23,6 +24,8 @@ class Payin extends Component {
         this.displayCards = this.displayCards.bind(this);
         this.displayCards_option = this.displayCards_option.bind(this);
         this.get_selected = this.get_selected.bind(this);
+        this.get_value_input = this.get_value_input.bind(this);
+        this.clear = this.clear.bind(this);
     }
 
     componentDidMount() {
@@ -63,13 +66,14 @@ class Payin extends Component {
         let add_payins = {
             id: Data.Payins.length,
             wallet_id: parseInt(localStorage.getItem('crt_user_id'), 10) ,
-            amount: parseInt(this.state.amount, 10)
+            amount: parseInt(this.state.amount*100)
         }
         jsonData.payins.push(add_payins);
         
-        console.log(jsonData.payins);
-        let new_balance = localStorage.getItem('user_balance')+this.state.amount
+        console.log(this.state.amount);
+        var new_balance = parseInt(localStorage.getItem('user_balance'))+ parseInt(this.state.amount*100)
         localStorage.setItem('user_balance',new_balance)
+        console.log("new balance is ",new_balance)
         
         this.cleanForm();
 
@@ -88,6 +92,13 @@ class Payin extends Component {
         console.log('new list is', newList)
         this.setState({ listCard: newList })
         console.log(this.listCard);
+    }
+    
+    clear = () => {
+        var elements = document.getElementById("amount_trans");
+        elements.value = "";
+        this.state.first = true;
+        
     }
 
     displayCards=()=> {
@@ -122,6 +133,19 @@ class Payin extends Component {
         var value = selector[selector.selectedIndex].value;
         this.state.selected_card = value
     }
+    get_value_input(event)
+    {
+        var selector = document.getElementById('amount_trans');
+        var value = selector.value;
+        if(this.state.first)
+           { value = value/1000;
+            this.state.first = false;
+           }
+        var value_fixed = value*10;
+        this.setState({ [event.target.name]: value_fixed.toFixed(2) })
+        this.state.amount =  value_fixed.toFixed(2);
+        console.log(this.state.amount);
+    }
 
     render() {
         return (
@@ -130,8 +154,9 @@ class Payin extends Component {
                 <text class="title">Payins</text>
                 <Col sm="12" md={{ size: 6, offset: 3 }}><div className="row" >
                     <Col sm={{ size: 'auto', offset: 1 }}>{this.displayCards_option()}</Col>
-                    <Col sm={{ size: 'auto', offset: 1 }}><input type="text" value ={this.state.amount} onChange={this.handleChange}  name="amount" placeholder="Amount"></input></Col>   
+                    <Col sm={{ size: 'auto', offset: 1 }}><input id="amount_trans" type="text" value ={this.state.amount} onChange={this.get_value_input}  name="amount" placeholder="Amount"></input></Col>   
                     <Col sm={{ size: 'auto', offset: 1 }}><Button color="primary" title="Transfer" onChange={this.handleChange}  onClick={this.paiment} name="transfert" /*disabled={this.state.form_val}*/ >Transfert</Button></Col>
+                    <Col sm={{ size: 'auto', offset: 1 }}><Button color="primary" title="Clear" onChange={this.handleChange}  onClick={this.clear} name="Clear" /*disabled={this.state.form_val}*/ >Clear</Button></Col>
                 </div></Col>
             </div>
         )
